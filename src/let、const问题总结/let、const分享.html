@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>let、const问题总结</title>
+    <meta name="tool" content="leanote-desktop-app">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <style>
+    .tab {
+        margin-bottom: 10px;
+        font-size: 12px;
+    }
+    .tab a {
+        display: inline-block;
+        margin-right: 10px;
+        color: #000;
+        cursor: pointer;
+        cursor: pointer;;
+    }#tab-html {
+        color: #ccc;
+    }
+
+    .content-container .content-html {
+        visibility: hidden;
+    }
+    .content-container.html .content-markdown {
+        display: none;
+    }
+    .content-container.html .content-html {
+        display: block;
+        visibility: visible;
+    }
+    .content-container.html #tab-markdown {
+        color: #ccc;
+    }
+    .content-container.html #tab-html {
+        color: #000;
+    }
+    .content-markdown {
+        overflow: auto;
+    }
+    textarea {
+        display: none;
+    }
+
+    * {
+        font-family: "lucida grande","lucida sans unicode",lucida,helvetica,"Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    /*公用文字样式*/
+    h1 {
+        font-size: 30px;
+    }h2 {
+        font-size: 24px;
+    }h3 {
+        font-size: 18px;
+    }h4 {
+        font-size: 14px;
+    }
+    .note-container {
+        width: 850px;
+        margin: auto;
+        padding: 10px 20px;
+        box-shadow: 1px 1px 10px #eee;
+    }
+    #title {
+        margin: 0;
+    }
+    table {
+        margin-bottom: 16px;
+        border-collapse: collapse;
+    }
+    table th,
+    table td {
+        padding: 6px 13px;
+        border: 1px solid #ddd;
+    }
+    table th {
+        font-weight: bold;
+    }
+
+    table tr {
+        border-top: 1px solid #ccc;
+        background-color: none;
+    }
+    table tr:nth-child(2n) {
+        background-color: rgb(247, 247, 249);
+    }
+    .mce-item-table,
+    .mce-item-table td,
+    .mce-item-table th,
+    .mce-item-table caption {
+        padding: 6px 13px;
+        border: 1px solid #ddd;
+        border-collapse: collapse;
+    }
+    blockquote {
+        padding: 15px 20px;
+        border-left: 5px solid rgba(128,128,128,.075);
+        border-left-width: 10px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        background-color: rgba(128,128,128,.05);
+    }
+    blockquote p {
+        margin-bottom: 1.1em;
+        font-size: 1em;
+        line-height: 1.45;
+    }
+    blockquote ul:last-child,
+    blockquote ol:last-child {
+        margin-bottom: 0;
+    }
+    pre {
+        display: block;
+        padding: 18px;
+        border: 1px solid #e1e1e8;
+        border-radius: 3px;
+        background-color: #f7f7f9;
+    }
+    code {
+        padding: 2px 4px;
+        font-size: 90%;
+        white-space: nowrap;
+        color: #c7254e;
+        border-radius: 4px;
+        background-color: #f9f2f4;
+    }
+    .footnote {
+        position: relative;
+        top: -.5em;
+        font-size: .8em;
+        vertical-align: top;
+    }
+
+    hr {
+        margin: 2em 0;
+    }
+    img {
+        display: block;
+        max-width: 100%;
+        margin: auto;
+    }
+    pre {
+        word-break: break-word;
+    }
+    p,
+    pre,
+    pre.prettyprint,
+    blockquote {
+        margin: 0 0 1.1em;
+    }
+    hr {
+        margin: 2em 0;
+    }
+    img {
+        max-width: 100%;
+    }
+    .sequence-diagram,
+    .flow-chart {
+        margin-bottom: 1.1em;
+        text-align: center;;
+    }
+    .sequence-diagram text,
+    .flow-chart text {
+        font-family: "Source Sans Pro",sans-serif !important;
+        font-size: 15px !important;;
+    }
+    .sequence-diagram [fill="#ffffff"],
+    .flow-chart [fill="#ffffff"] {
+        fill: #f6f6f6;
+    }
+    .sequence-diagram [stroke="#000000"],
+    .flow-chart [stroke="#000000"] {
+        stroke: #3f3f3f;
+    }
+    .sequence-diagram text[stroke="#000000"],
+    .flow-chart text[stroke="#000000"] {
+        stroke: none;
+    }
+    .sequence-diagram [fill="#000"],
+    .flow-chart [fill="#000"],
+    .sequence-diagram [fill="#000000"],
+    .flow-chart [fill="#000000"],
+    .sequence-diagram [fill="black"],
+    .flow-chart [fill="black"] {
+        fill: #3f3f3f;
+    }
+    ul,
+    ol {
+        margin-bottom: 1.1em;
+    }
+    ul ul,
+    ol ul,
+    ul ol,
+    ol ol {
+        margin-bottom: 1.1em;
+    }
+    kbd {
+        display: inline-block;
+        margin: 0 .1em;
+        padding: .1em .6em;
+        border: 1px solid rgba(63,63,63,.25);
+        font-family: sans-serif;
+        font-size: .7em;
+        white-space: nowrap;
+        color: #333;
+        border-radius: 3px;
+        background-color: #fff;
+        -webkit-box-shadow: 0 1px 0 rgba(63,63,63,.25);
+                box-shadow: 0 1px 0 rgba(63,63,63,.25);;
+    }
+    .toc ul {
+        margin-bottom: 15px;
+        list-style-type: none;;
+    }
+    .m-todo-item {
+        list-style: none;
+    }
+    pre code {
+        padding: 0;
+        white-space: pre-wrap;
+        color: inherit;
+        border-radius: 0;
+        background-color: inherit;
+    }
+    </style>
+    <!-- 该css供自定义样式 -->
+    <link href="../leanote-markdown.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
+</head>
+<body>
+    <div class="note-container">
+        <h1 class="title" id="leanote-title">let、const分享</h1>
+        <div class="content-container html" id="content-container">
+            <!-- 切换 -->
+            <div class="tab">
+                <a id="tab-markdown">Markdown</a>
+                <a id="tab-html">HTML</a>
+            </div>
+            <textarea id="leanote-content-markdown">ECMA对let、const的declarations：
+      <img src="./5f2aacd54b1d33412b000002.png">
+翻译： 
+let和const声明定义变量，他们的作用域的执行上下文运行在LexicalEnvironment。当他们包含的词法环境被实例化时变量被创建，但是在变量的LexicalBinding被计算之前不能以任何方式访问。变量的定义发生在计算LexicalBinding时，通过将初始化器的AssignmentExpressio值赋值给LexicalBinding的初始化器，而不是在变量被创建的时候。如果let声明中的LexicalBinding没有初始化器，则在LexicalBinding时将给变量赋undefined。
+<br><br>
+1. `const text = 'hello world!!!;
+let array = {};
+array.name = 'zhangsan';
+array.age = 12;`
+思考： 改变的是什么，在编程语言中是如何定义变量和常量的
+<br><br>
+2.
+ `function do() {
+    j = 9;
+}
+//do();
+let j;
+do();
+console.log(j);`
+这段代码会报错吗？最后输出的j是多少，为什么？
+思考的出发点：为什么函数调用的位置不同，会有不同的结果，不同的调用位置，在编译、运行的过程中，哪个步骤导致了结果的不同
+<br><br>
+3. js是如何区分声明的变量是let、还是const，在什么时候进行区分的？
+我的猜测：在ECMA中有以下解释
+<img src="./5f2ab4284b1d33412b000004.png">
+在LexicalDeclaration阶段如果是let声明则 
+return IsConstantDeclaration = false；
+如果是const声明则 return IsConstantDeclaration = true;
+这个区分是在staic semantics，静态语义时
+**疑问：static semantics与Runtime Sematics**
+<br><br>
+4.  
+<img src="./5f2aa79d4b1d33412b000001.png">
+为什么会报这个错误，这是什么错误
+    
+
+----------
+
+我的猜想： 如果let的词法绑定阶段没有初始化器，则会赋值为undefined，此时是Static Semantics绑定，当进入Runtime Semantics后，在Runtime Semantics的词法绑定可再此进行赋值操作。由于const声明的变量不能够重复进行赋值操作，所以在Static Semantics绑定阶段它必须有初始化器，即在声明变量的时候必须为它赋初值。
+在ECMA中这是一个early errors
+<img src="./5f2aaecc4b1d33412b000003.png">
+翻译：如果没有初始化器并且包含此词法绑定的词法声明返回的IsConstantDeclaration为true，则是一个语法错误。
+备注： 词法分析是将源代码拆分为token，语法分析将token根据语法规则转为AST，如果不符合语法规范抛出语法错误
+
+**问题遗留：BoundNames、BindingList**
+<br><br>
+ 5.  为什么let、const声明的变量不能够重复声明，var声明的变量可以重复声明
+ECMA对Var的定义
+<img src="./5f2ba0144b1d33412b000008.png">
+var语句声明变量，作用域为运行执行上下文的VariableEnvironment，var变量在实例化其包含的词法环境时被创建，在创建时被初始化为undefined。在任何可变环境的范围内，公共BindingIdentifier（绑定标识符）可能出现在多个可变声明中，但这些声明共同只定义了一个变量。定义一个变量是在当执行变量声明时，通过将初始化器的赋值表达式赋值给它的变量声明的初始化器。
+<br>
+**对这个定义产生的疑问：** VariableEnvironment中也存在Lexical Environment，那么VariableEnvironment中的Lexical Environment与let、const声明时运行执行上下文的LexicalEnvironment有什么异同？
+由此引申一个猜想：LexicalEnvironment的作用是否是提供块级作用域，VariableEnvironment中的LexicalEnvironment使得function有了块级作用域
+
+**对这个问题答案的猜想**： 关键在于var声明的变量在VariableEnvironment，在这个环境中有公共BindingIdentifier，而在LexicalEnvironment中没有公共BindingIdentifier，所以在词法环境中不能有同名标识符，因此var声明的变量在VariableEnvironment中，利用公共BindingIdentifier机制可以实现变量重复声明，let、const声明的变量在LexicalEnvironment，在这个环境中，每个变量标识符只能出现一次。
+**问题遗留** BindingIdentifier
+<br><br>
+ 6.   
+<img src="./5f2ba3de4b1d33412b000009.png">
+为什么是引用错误？
+问题分析： 
+ 首先它是一个引用错误，而引用错误是一个runtime error（猜想），如果是runtime error，那么在static error阶段没报错，是不是可以说明，在static semantics它是合理的，或者在static semantics阶段对这个问题的处理是有问题的。如果在static semantics它是合理的，也就是变量x被声明了，但是由于在变量的LexicalBinding被计算之前是无法访问的，而以上代码则是在LexicalBinding未被计算前访问，所以报错
+<br>
+思考：暂时性死区，为什么会产生，在那个阶段产生的
+**问题遗留**   staic error、runtime error， static semantics
+<br><br>
+ 7. 
+<img src="./5f2b72d44b1d33412b000005.png">
+对这个现象有什么疑问、思考？
+
+ - 在VariableEnvironment中，为什么let和const是不同的？
+ - 为什么它们的报错不同？
+ - 是语言的bug还是不同的情况有区别
+
+待探索
+<br><br>
+ 8 
+<img src="./5f2b8fa14b1d33412b000007.png">
+这个错误是early error还是runtime error？
+这个问题很常见，但是对于这个报错脑子很蒙圈，不知道从哪个角度去思考，报错是哪个阶段，感觉不是核心，也不应该是它的思考点，但我目前就只能看到这个问题。
+<br><br>
+9.var有什么优点、let、const有什么缺点？
+var变量的lifecycle：
+ - Declaration phase + Initialization phase
+ - Assignment phase
+<br>
+let、cosnt变量的lifecycle： 
+ - Declaration phase
+ - Initialization phase
+ - Assignment phase
+<br>
+我的观点：首先，个人主观上我不认为任何事物一无是处，决定它好坏的，是它所处的环境。var曾经肯定也是人见人爱、花见花开，红极一时，因为它的出现解决了人们当时最迫切需要解决的问题，而现在被千千万万人所唾弃，是因为它“造成”了很多问题。反观let、const它们的出现刚好解决了我们当前环境中迫切需要解决的问题。
+<br>
+**var的优点：**根据变量生命周期这个理论，我觉的var在性能上是优于let、const的。js是解释型的语言,在将编程语言转换为机器语言的过程中，我们有那么多的变量，每一个都需要三步走和需要两步走，数量庞大的时候，这个差距应该是肉眼可见。
+备注：关于变量生命周期，这么说是否合理、还有待探索。我会认同这个观点，是因为我在解决问题的过程中，发现这个理论之后，它刚好能对我的疑问有一个解答，**不要被我带偏**
+<br>
+**let、const的缺点**
+以下的猜测真的有一种自己在胡诌的感觉，没有找到可以支持我论点的理论依据，纯属个人主观**阅读需谨慎**
+我觉得它们的缺点也刚好是它们目前所体现出来的优点。他们太被固化了，感觉没有var那么大的发展空间。我们还停留在es6，但实际上es都更新到多少了？let、const能解决我们目前开发中的问题，但是将来呢？我们的问题是变化的，所以解决方案也是需要变化的，我觉得let、const的诞生还有一个点，降低了js的难度，使它更容易被使用着接受和理解。
+不能解答这个问题，真的是我知识面太窄，看不到那么多，不能从一个更大的范围去考虑，有待加强。
+<br><br>
+10: 
+`x = "global";
+(function() {x;let x;}());
+{x;let x;}`
+
+ - 按照变量查找的原则，x = global是全局作用域，那么在 function和 {}中也是能查找到x的
+ - 为什么去掉function外的()会报错
+
+<br><br>
+11.
+ `function bar() {
+    console.log(myName)
+}
+function foo() {
+    var myName = "zhangsan"
+    bar()
+}
+var myName = "lisi"
+foo()`
+先用自己的理论推断一下是张三还是lisi，然后再运行代码看结果
+备注： 词法作用域就是指作用域是由代码中函数声明的位置来决定的，所以词法作用域是静态的作用域，通过它就能够预测代码在执行过程中如何查找标识符。
+12.
+ `function bar() { a;}
+let a;`
+先用自己的理论猜测一下是否会报错，然后运行
+<br><br>
+13.
+`function bar() {console.log(a);}
+//bar()
+let a;
+bar()`
+在12的基础上，与第2个问题类似
+<br><br>
+14. let、const有hosting吗？
+思考点：如果用变量的声明周期这个理论来解释，我觉得let、const、var都没有hosting，只是它给我们的感觉是hosting，js是按顺序执行的，`conso.log(a); var = a;`,var = a;这个语句却在console语句之前执行了，所以感觉上是hosting
+<br><br>
+15. let、const解决了什么问题？
+思考点：在全局作用域和function中，使用var和let，此时变量的作用域都是全局或者function scope，关于作用域主要不同的是在if和for中。这个有点像有银河系==>太阳系==>地月系和土卫（土星和他的卫星）。我觉得var也是有作用域的按照以上的理解，只不过没有let、const那么严谨或者说界限分明。
+我的观点： 我认为let、const解决的最突出的问题是，var可以重复赋值的问题，而不是作用域。代码按照顺序执行，后面的会覆盖掉前面的。这在开发中会给我们带来很多意外的问题。
+我也不觉得这是var的bug，我理解的bug是程序中出现了与我们的预期或者目的不符的情况，也就是我要的结果是result = 3，但执行完后实际上是result = 4，也就是产生bug了。所以有bug的不是var，而是我们使用var的人，导致了这个意外情况的产生。
+还有我觉得增加let和const是为了降低js这个语言的难度，var真的太神奇了，一不小心就掉坑了，但是你用了let和const后，坑就少了。
+<br><br>
+16. let、const、var用哪个？
+以上所有的问题的出发点和终点，我觉得都是为了解决这个问题。
+我的观点：现在倾向于使用const。
+综上，var太“善变”，带给了我们很多与预期不符的意外情况，常说let是变量、cosnt是常量，为什么这么说呢？在我们的感觉上let是变的，const是不变的，为什么说是感觉上呢？因为const声明的本质上也是变量。
+let虽然没有var那么“善变”，但是它比const“善变”，如果使用let和const的目的是为了在开发中规避var的坑，显然用const，掉的坑会少一些。如果是为了防止后面可能会修改变量，而const不能实现这个需求，推荐一本书：代码整洁之道。
+
+结束语： 
+以上内容，我的观点、理解肯定有不严谨、甚至理解偏差的地方，**大家要谨防被我带偏。**分享的核心不是这些问题的答案，而是这些问题本身。
+在解决问题的过程中，你可能会发现有正反对立的观点，很矛盾，但是你会觉得他们都是对的，所以就会造成探索永无止境，头发掉的更快。
+欢迎大家指出我以上表述不严谨的地方，理解有偏差的地方，尤其有观点不一致的，那可真的是太好了，不能光我一个人掉头发，死也要拉个垫背的。。。。
+
+
+参考文章： 
+[为什么为const变量重新赋值不是个静态错误](https://www.cnblogs.com/ziyunfei/p/6043513.html)<br>
+[ECMA](https://www.ecma-international.org/ecma-262/9.0/index.html#prod-BindingList)<br>
+[Javascript是如何工作的：JavaScript的内存模型](https://blog.fundebug.com/2019/04/15/javascritpt-memory-mechanism/) <br>
+[浏览器中的JavaScript执行机制](https://time.geekbang.org/column/article/131887)
+[V8编译过程](https://juejin.im/post/6844903953981767688)<br>
+[Are variables declared with let or const hoisted?
+](https://stackoverflow.com/questions/31219420/are-variables-declared-with-let-or-const-hoisted#comment64325691_31222689)
+[JavaScript Variables Lifecycle: Why let Is Not Hoisted](https://dmitripavlutin.com/variables-lifecycle-and-why-let-is-not-hoisted/) <br>
+[我用了两个月的时间才理解 let](https://fangyinghang.com/let-in-js/) <br>
+[从JS底层理解var,const,let](https://segmentfault.com/a/1190000022015132)<br></textarea>
+            <!-- markdown -->
+            <pre class="content-markdown">ECMA对let、const的declarations：
+<img src="./5f2aacd54b1d33412b000002.png">
+翻译： 
+let和const声明定义变量，他们的作用域的执行上下文运行在LexicalEnvironment。当他们包含的词法环境被实例化时变量被创建，但是在变量的LexicalBinding被计算之前不能以任何方式访问。变量的定义发生在计算LexicalBinding时，通过将初始化器的AssignmentExpressio值赋值给LexicalBinding的初始化器，而不是在变量被创建的时候。如果let声明中的LexicalBinding没有初始化器，则在LexicalBinding时将给变量赋undefined。
+<br><br>
+1. `const text = 'hello world!!!;
+let array = {};
+array.name = 'zhangsan';
+array.age = 12;`
+思考： 改变的是什么，在编程语言中是如何定义变量和常量的
+<br><br>
+2.
+ `function do() {
+    j = 9;
+}
+//do();
+let j;
+do();
+console.log(j);`
+这段代码会报错吗？最后输出的j是多少，为什么？
+思考的出发点：为什么函数调用的位置不同，会有不同的结果，不同的调用位置，在编译、运行的过程中，哪个步骤导致了结果的不同
+<br><br>
+3. js是如何区分声明的变量是let、还是const，在什么时候进行区分的？
+我的猜测：在ECMA中有以下解释
+<img src="./5f2ab4284b1d33412b000004.png">
+在LexicalDeclaration阶段如果是let声明则 
+return IsConstantDeclaration = false；
+如果是const声明则 return IsConstantDeclaration = true;
+这个区分是在staic semantics，静态语义时
+**疑问：static semantics与Runtime Sematics**
+<br><br>
+4.  
+<img src="./5f2aa79d4b1d33412b000001.png">
+为什么会报这个错误，这是什么错误
+    
+
+----------
+
+我的猜想： 如果let的词法绑定阶段没有初始化器，则会赋值为undefined，此时是Static Semantics绑定，当进入Runtime Semantics后，在Runtime Semantics的词法绑定可再此进行赋值操作。由于const声明的变量不能够重复进行赋值操作，所以在Static Semantics绑定阶段它必须有初始化器，即在声明变量的时候必须为它赋初值。
+在ECMA中这是一个early errors
+<img src="./5f2aaecc4b1d33412b000003.png">
+翻译：如果没有初始化器并且包含此词法绑定的词法声明返回的IsConstantDeclaration为true，则是一个语法错误。
+备注： 词法分析是将源代码拆分为token，语法分析将token根据语法规则转为AST，如果不符合语法规范抛出语法错误
+
+**问题遗留：BoundNames、BindingList**
+<br><br>
+ 5.  为什么let、const声明的变量不能够重复声明，var声明的变量可以重复声明
+ECMA对Var的定义
+<img src="./5f2ba0144b1d33412b000008.png">
+var语句声明变量，作用域为运行执行上下文的VariableEnvironment，var变量在实例化其包含的词法环境时被创建，在创建时被初始化为undefined。在任何可变环境的范围内，公共BindingIdentifier（绑定标识符）可能出现在多个可变声明中，但这些声明共同只定义了一个变量。定义一个变量是在当执行变量声明时，通过将初始化器的赋值表达式赋值给它的变量声明的初始化器。
+<br>
+**对这个定义产生的疑问：** VariableEnvironment中也存在Lexical Environment，那么VariableEnvironment中的Lexical Environment与let、const声明时运行执行上下文的LexicalEnvironment有什么异同？
+由此引申一个猜想：LexicalEnvironment的作用是否是提供块级作用域，VariableEnvironment中的LexicalEnvironment使得function有了块级作用域
+
+**对这个问题答案的猜想**： 关键在于var声明的变量在VariableEnvironment，在这个环境中有公共BindingIdentifier，而在LexicalEnvironment中没有公共BindingIdentifier，所以在词法环境中不能有同名标识符，因此var声明的变量在VariableEnvironment中，利用公共BindingIdentifier机制可以实现变量重复声明，let、const声明的变量在LexicalEnvironment，在这个环境中，每个变量标识符只能出现一次。
+**问题遗留** BindingIdentifier
+<br><br>
+ 6.   
+ <img src="./5f2ba3de4b1d33412b000009.png">
+为什么是引用错误？
+问题分析： 
+ 首先它是一个引用错误，而引用错误是一个runtime error（猜想），如果是runtime error，那么在static error阶段没报错，是不是可以说明，在static semantics它是合理的，或者在static semantics阶段对这个问题的处理是有问题的。如果在static semantics它是合理的，也就是变量x被声明了，但是由于在变量的LexicalBinding被计算之前是无法访问的，而以上代码则是在LexicalBinding未被计算前访问，所以报错
+<br>
+思考：暂时性死区，为什么会产生，在那个阶段产生的
+**问题遗留**   staic error、runtime error， static semantics
+<br><br>
+ 7. 
+ <img src="./5f2b72d44b1d33412b000005.png">
+对这个现象有什么疑问、思考？
+
+ - 在VariableEnvironment中，为什么let和const是不同的？
+ - 为什么它们的报错不同？
+ - 是语言的bug还是不同的情况有区别
+
+待探索
+<br><br>
+ 8 
+<img src="./5f2b8fa14b1d33412b000007">
+这个错误是early error还是runtime error？
+这个问题很常见，但是对于这个报错脑子很蒙圈，不知道从哪个角度去思考，报错是哪个阶段，感觉不是核心，也不应该是它的思考点，但我目前就只能看到这个问题。
+<br><br>
+9.var有什么优点、let、const有什么缺点？
+var变量的lifecycle：
+ - Declaration phase + Initialization phase
+ - Assignment phase
+<br>
+let、cosnt变量的lifecycle： 
+ - Declaration phase
+ - Initialization phase
+ - Assignment phase
+<br>
+我的观点：首先，个人主观上我不认为任何事物一无是处，决定它好坏的，是它所处的环境。var曾经肯定也是人见人爱、花见花开，红极一时，因为它的出现解决了人们当时最迫切需要解决的问题，而现在被千千万万人所唾弃，是因为它“造成”了很多问题。反观let、const它们的出现刚好解决了我们当前环境中迫切需要解决的问题。
+<br>
+**var的优点：**根据变量生命周期这个理论，我觉的var在性能上是优于let、const的。js是解释型的语言,在将编程语言转换为机器语言的过程中，我们有那么多的变量，每一个都需要三步走和需要两步走，数量庞大的时候，这个差距应该是肉眼可见。
+备注：关于变量生命周期，这么说是否合理、还有待探索。我会认同这个观点，是因为我在解决问题的过程中，发现这个理论之后，它刚好能对我的疑问有一个解答，**不要被我带偏**
+<br>
+**let、const的缺点**
+以下的猜测真的有一种自己在胡诌的感觉，没有找到可以支持我论点的理论依据，纯属个人主观**阅读需谨慎**
+我觉得它们的缺点也刚好是它们目前所体现出来的优点。他们太被固化了，感觉没有var那么大的发展空间。我们还停留在es6，但实际上es都更新到多少了？let、const能解决我们目前开发中的问题，但是将来呢？我们的问题是变化的，所以解决方案也是需要变化的，我觉得let、const的诞生还有一个点，降低了js的难度，使它更容易被使用着接受和理解。
+不能解答这个问题，真的是我知识面太窄，看不到那么多，不能从一个更大的范围去考虑，有待加强。
+<br><br>
+10: 
+`x = "global";
+(function() {x;let x;}());
+{x;let x;}`
+
+ - 按照变量查找的原则，x = global是全局作用域，那么在 function和 {}中也是能查找到x的
+ - 为什么去掉function外的()会报错
+
+<br><br>
+11.
+ `function bar() {
+    console.log(myName)
+}
+function foo() {
+    var myName = "zhangsan"
+    bar()
+}
+var myName = "lisi"
+foo()`
+先用自己的理论推断一下是张三还是lisi，然后再运行代码看结果
+备注： 词法作用域就是指作用域是由代码中函数声明的位置来决定的，所以词法作用域是静态的作用域，通过它就能够预测代码在执行过程中如何查找标识符。
+12.
+ `function bar() { a;}
+let a;`
+先用自己的理论猜测一下是否会报错，然后运行
+<br><br>
+13.
+`function bar() {console.log(a);}
+//bar()
+let a;
+bar()`
+在12的基础上，与第2个问题类似
+<br><br>
+14. let、const有hosting吗？
+思考点：如果用变量的声明周期这个理论来解释，我觉得let、const、var都没有hosting，只是它给我们的感觉是hosting，js是按顺序执行的，`conso.log(a); var = a;`,var = a;这个语句却在console语句之前执行了，所以感觉上是hosting
+<br><br>
+15. let、const解决了什么问题？
+思考点：在全局作用域和function中，使用var和let，此时变量的作用域都是全局或者function scope，关于作用域主要不同的是在if和for中。这个有点像有银河系==>太阳系==>地月系和土卫（土星和他的卫星）。我觉得var也是有作用域的按照以上的理解，只不过没有let、const那么严谨或者说界限分明。
+我的观点： 我认为let、const解决的最突出的问题是，var可以重复赋值的问题，而不是作用域。代码按照顺序执行，后面的会覆盖掉前面的。这在开发中会给我们带来很多意外的问题。
+我也不觉得这是var的bug，我理解的bug是程序中出现了与我们的预期或者目的不符的情况，也就是我要的结果是result = 3，但执行完后实际上是result = 4，也就是产生bug了。所以有bug的不是var，而是我们使用var的人，导致了这个意外情况的产生。
+还有我觉得增加let和const是为了降低js这个语言的难度，var真的太神奇了，一不小心就掉坑了，但是你用了let和const后，坑就少了。
+<br><br>
+16. let、const、var用哪个？
+以上所有的问题的出发点和终点，我觉得都是为了解决这个问题。
+我的观点：现在倾向于使用const。
+综上，var太“善变”，带给了我们很多与预期不符的意外情况，常说let是变量、cosnt是常量，为什么这么说呢？在我们的感觉上let是变的，const是不变的，为什么说是感觉上呢？因为const声明的本质上也是变量。
+let虽然没有var那么“善变”，但是它比const“善变”，如果使用let和const的目的是为了在开发中规避var的坑，显然用const，掉的坑会少一些。如果是为了防止后面可能会修改变量，而const不能实现这个需求，推荐一本书：代码整洁之道。
+
+结束语： 
+以上内容，我的观点、理解肯定有不严谨、甚至理解偏差的地方，**大家要谨防被我带偏。**分享的核心不是这些问题的答案，而是这些问题本身。
+在解决问题的过程中，你可能会发现有正反对立的观点，很矛盾，但是你会觉得他们都是对的，所以就会造成探索永无止境，头发掉的更快。
+欢迎大家指出我以上表述不严谨的地方，理解有偏差的地方，尤其有观点不一致的，那可真的是太好了，不能光我一个人掉头发，死也要拉个垫背的。。。。
+
+
+参考文章： 
+[为什么为const变量重新赋值不是个静态错误](https://www.cnblogs.com/ziyunfei/p/6043513.html)<br>
+[ECMA](https://www.ecma-international.org/ecma-262/9.0/index.html#prod-BindingList)<br>
+[Javascript是如何工作的：JavaScript的内存模型](https://blog.fundebug.com/2019/04/15/javascritpt-memory-mechanism/) <br>
+[浏览器中的JavaScript执行机制](https://time.geekbang.org/column/article/131887)
+[V8编译过程](https://juejin.im/post/6844903953981767688)<br>
+[Are variables declared with let or const hoisted?
+](https://stackoverflow.com/questions/31219420/are-variables-declared-with-let-or-const-hoisted#comment64325691_31222689)
+[JavaScript Variables Lifecycle: Why let Is Not Hoisted](https://dmitripavlutin.com/variables-lifecycle-and-why-let-is-not-hoisted/) <br>
+[我用了两个月的时间才理解 let](https://fangyinghang.com/let-in-js/) <br>
+[从JS底层理解var,const,let](https://segmentfault.com/a/1190000022015132)<br></pre>
+            <!-- html -->
+            <div class="content-html" id="leanote-content-html"></div>
+        </div>
+    </div>
+    <!-- 该js供其它处理 -->
+    <script src="../leanote-markdown.js"></script>
+    <script src="http://leanote.github.io/markdown-to-html/markdown-to-html.min.js"></script>
+    <script>
+    function init() {
+        markdownToHtml(document.getElementById('leanote-content-markdown').value, document.getElementById('leanote-content-html'), function (html) {
+            // 解析后执行
+            if (window.markdownParsed) {
+                window.markdownParsed(html);
+            }
+
+        });
+        var $m = document.getElementById('tab-markdown');
+        var $h = document.getElementById('tab-html');
+        var $cc = document.getElementById('content-container');
+        function toggleToHtml(isToHtml) {
+            $cc.className = isToHtml ? 'content-container html' : 'content-container';
+        }
+        $m.addEventListener('click', function () {
+            toggleToHtml(false);
+        });
+        $h.addEventListener('click', function () {
+            toggleToHtml(true);
+        });
+    }
+
+    // 如果不要自动解析html, notParseMarkdown在leanote-markdown.js中定义
+    if (!window.notParseMarkdown) {
+        init();
+    }
+    </script>
+</body>
+</html>
