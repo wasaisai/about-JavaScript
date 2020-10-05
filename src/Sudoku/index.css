@@ -1,0 +1,47 @@
+html body {
+    margin: 0;
+    padding: 0;
+}
+
+.wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    transform: translate(-50%, -50%);
+}
+
+.wrap-line {
+    width: 100%;
+    height: 60px;
+    margin: 5px;
+    background-color: coral;
+}
+
+.grid {
+    border-radius: 5px;
+}
+
+.wrap-btn {
+    width: 200px;
+    margin-top: 20px;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.btn {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid coral;
+    margin-top: 10px;
+    color: coral;
+}
+
+.btn:hover {
+    background-color: gold;
+}
