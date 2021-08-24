@@ -97,6 +97,143 @@
 
 // console.log(2)
 
+// Promise实现了回调函数的延时绑定. 回调函数的延时绑定在代码上体现就是先创建Promise对象x1
+// 通过Promise的构造函数exector来执行业务逻辑
+// 创建好Promise对象x1之后, 再使用x1.then来设置回调函数
+// 其次需要将回调函数Onresolve的返回值透穿到最外层
+
+// promise对象的错误具有“冒泡”性质, 会一直向后传递, 直到被onReject函数处理或catch语句捕获为止. 
+
+// function executor(resolve, reject) {
+//     resolve(100)
+// }
+
+// let x1 = new Promise(executor)
+
+// function onResolve1(value) {
+//     console.log(value)
+//     let x2 = new Promise((resolve, reject) => {
+//         resolve(value + 1)
+//     })
+//     return x2
+// }
+
+// function onResolve2(value) {
+//     console.log(value);
+//     let x3 = new Promise((resolve, reject) => {
+//         resolve(value + 2);
+//     })
+//     return x3;
+// }
+
+// x1.then(onResolve1).then(onResolve2).then(value => console.log(value))
+
+// function onResolve(response) {console.log(response)}
+// function onReject(error) {console.log(error)};
+
+// let xhr = new XMLHttpRequest()
+
+// xhr.ontimeout = function(e) { console.log(e)}
+// xhr.onerror = function(e) { onReject(e)}
+// xhr.onreadystatechange = function() { onResolve(xhr.response)}
+
+// let url = 'https: //time.geekbang.com';
+// xhr.open('Get', URL, true)
+
+// xhr.timeout  = 3000;
+// xhr.responseType = 'text';
+// xhr.setRequestHeader('x_TEST', 'time.geekbang');
+
+// xhr.send();
+
+// function maskeRequest(request_url) {
+//     let request = {
+//         method: 'Get',
+//         url: request_url,
+//         headers: '',
+//         body: '',
+//         credentials: false,
+//         sync: true,
+//         responseType: 'text',
+//         referrer: ''
+//     }
+//     return request;
+// }
+
+// function XFetch(request, resolve, reject) {
+//     let xhr = new XMLHttpRequest();
+//     xhr.ontimeout = error => {
+//         reject(error)
+//     };
+//     xhr.onerror = error => {
+//         reject(error)
+//     };
+//     xhr.onreadystatechange = () => {
+//         if (+xhr.response === 200) {
+//             resolve(xhr.response)
+//         }
+//     };
+//     xhr.open(request.method, request.url, request.sync);
+//     xhr.timeout = request.timeout;
+//     xhr.responseType = request.responseType;
+//     xhr.send();
+// }
+
+// function resolve(data) {
+//     console.log(data)
+// }
+
+// function reject(error) {
+//     console.log(error)
+// }
+
+// XFetch(maskeRequest('https://time.geekbang.org'), resolve, reject);
+
+
+
+// function XFetch(request) {
+//     return new Promise((resolve, reject) => {
+//         let xhr = new XMLHttpRequest();
+//         xhr.onerror = error => reject(error);
+//         xhr.ontimeout = error => reject(error);
+//         xhr.open(request.method, request.url, request.sync);
+//         xhr.onreadystatechange = () => {
+//            if (xhr.readyState === 4) {
+//                 if (+xhr.response === 200) {
+//                     resolve(xhr.response);
+//                 } else {
+//                     let error = {
+//                         code: xhr.status,
+//                         response: xhr.response
+//                     }
+//                     reject(error);
+//                 }
+//            }
+//         };
+//         xhr.send();
+//     });
+// }
+
+// let x1 = XFetch(maskeRequest('https: //time.geekbang.org/?category'));
+
+function executor(resolve) {
+    let rand = Math.random();
+    console.log(1);
+    console.log(rand);
+    if(rand > 0.5) {
+        resolve();
+    } else {
+        // reject();
+    }
+}
+
+// let p0 = new Promise(executor);
+
+// let p1 = p0.then(value => {
+//     console.log('succeed-1');
+//     return new Promise(executor);
+// })
+
 
 // function Bromise(executor) {
 //     var onResolve_ = null;
@@ -104,38 +241,39 @@
 //     this.then = function(onResolve, onReject) {
 //         onResolve_ = onResolve;
 //     }
-//     function resolve( value) {
-//         console.log(onResolve_)
-//         onResolve_(value)
+//     function resolve(value) {
+//         onResolve_(value);
 //     }
-
-//     executor(resolve, null)
+//     executor(resolve, null);
 // }
 
+// let p = new Bromise(executor);
 
-function Bromise(executor) {
-    var onResolve_ = null
-    var onReject_ = null
-     //模拟实现resolve和then，暂不支持rejcet
-    this.then = function (onResolve, onReject) {
-        onResolve_ = onResolve
-    };
-    function resolve(value) {
-          setTimeout(()=>{
-            onResolve_(value)
-           },0)
+function Prom(executor) {
+    let onResolve_ = null;
+    let onReject_ = null;
+    this.then = function(resolve, reject) {
+        onResolve_ = resolve;
+        onReject_ = reject;
     }
-    executor(resolve, null);
+    function resolve(value) {
+        setTimeout(() => {
+            onResolve_(value);
+        }, 0);
+    }
+    function reject(error) {
+        onReject_(error);
+    }
+    executor(resolve, reject);
 }
 
 function executor(resolve, reject) {
-    resolve(100); 
+    resolve(100);
 }
 
-let demo = new Bromise(executor)
+let test = new Prom(executor);
 
-function onResolve(value) {
-    console.log('onResolve', value)
-}
+test.then(value => console.log(value));
 
-demo.then(onResolve)
+
+
