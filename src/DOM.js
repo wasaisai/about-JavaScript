@@ -74,3 +74,11 @@
 
 // 该示例中, JavaScript代码出现了div1.style.color = 'red'的语句, 它是用来操纵CSSOM的, 所以在运行Javascript之前, 需要先解析JavaScript语句之上所有的css样式
 // 所以如果代码里引用了外部的css文件, 那么在执行JavaScript之前, 还需要等待外部的css文件下载完成, 并解析生成CSSOM对象之后, 才能执行Javascript脚本
+
+
+// 虚拟dom解决的问题:
+/**
+ * 1. 将页面改变的内容应用到虚拟dom上, 而不是直接应用到dom上
+ * 2. 变化被应用到虚拟dom上时, 虚拟dom并不急着去渲染页面, 而仅仅是调整虚拟dom的内部状态, 这样操作虚拟dom的成本就非常低了
+ * 3. 在虚拟dom收集到足够的改变时, 再把这些变化一次性应用到真实的dom上
+ */
