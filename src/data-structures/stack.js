@@ -12,15 +12,15 @@ class Stack {
 
     //    stackItem.set(this, []);
     //    stackCount.set(this, 0)
-    
+
     }
     push(element) {
         // 第一种方式
         // return this.stackItem.push(element);
 
        // 第二种方式
-       this.stackItem[this.count] = element;
-       this.count++;
+        this.stackItem[this.count] = element;
+        this.count++;
     }
     pop() {
         if (this.isEmpty()) {
@@ -79,13 +79,39 @@ class Stack {
     }
 }
 
-const stack = new Stack();
+// const stack = new Stack();
 
-stack.count;
-stack.push(5);
-stack.push(8);
-stack.push('f');
-stack.pop();
-stack.peek();
-stack.toString();
-stack.clear();
+// stack.count;
+// stack.push(5);
+// stack.push(8);
+// stack.push('f');
+// stack.pop();
+// stack.peek();
+// stack.toString();
+// stack.clear();
+
+
+// 用栈解决问题: 把十进制转化成二进制
+
+function decimalToBinary(decNumber, base) {
+    const remStack = new Stack();
+    let number = decNumber;
+    const digts = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let rem;
+    let binaryString = '';
+
+    while (number > 0) {
+        rem = Math.floor(number % base);
+        remStack.push(rem);
+        number = Math.floor(number / base);
+    }
+
+    while (!remStack.isEmpty()) {
+        binaryString += digts[remStack.pop()];
+    }
+
+    return binaryString;
+
+}
+
+decimalToBinary(10);
