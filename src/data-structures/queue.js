@@ -89,8 +89,6 @@ class Queue {
 
 // 击鼓传花游戏:
 // 孩子们围成一个圈, 把花尽快地传给旁边的人.某一时刻传花停止, 这个时候花在谁手里, 谁就退出圆圈、结束游戏.重复这个过程, 直到只剩一个孩子
-
-
 function hotPotato(elementsList, num) {
     const queue = new Queue();
     const eliminatedList = [];
@@ -115,8 +113,7 @@ function hotPotato(elementsList, num) {
 
 
 const names = ['zhangsan', 'lisi', 'jack', 'juli'];
-const result = hotPotato(names, 7);
-console.log(result);
+hotPotato(names, 7);
 
 
 // 判断字符串是否为回文
