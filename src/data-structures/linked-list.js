@@ -85,7 +85,7 @@ export class LinkedList {
         return objString;
     }
     getElement(index) {
-        if (index > 0 && index <= this.count) {
+        if (index >= 0 && index <= this.count) {
             let current = this.head;
             for (let i = 0; i < index && current.next != null; i++) {
                 current = current.next;
