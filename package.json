@@ -1,0 +1,20 @@
+{
+  "name": "about-javascript",
+  "version": "1.0.0",
+  "description": "这里主要记录学习过程中遇到的各种js基础知识点、疑难杂症",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiaoyueyue/about-JavaScript.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/jiaoyueyue/about-JavaScript/issues"
+  },
+  "homepage": "https://github.com/jiaoyueyue/about-JavaScript#readme"
+}
