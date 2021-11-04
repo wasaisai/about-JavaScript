@@ -69,6 +69,6 @@ hash.put('susan', 'susan@email.com');
 hash.put('xiaohong', 'xiaohong@email.com');
 hash.put('fanhua', 'fanhua@email.com');
 const a = hash.get('jack');
-const b= hash.remove('jack');
-
-console.log(hash.toString());
+const b = hash.remove('jack');
+const c = hash.toString();
+const d = hash.loseloseHashCode('jack');

@@ -16,7 +16,7 @@ class HashTableLinearProbing extends HashTable {
                 this.table[position] = new ValuePair(key, value);
             } else {
                 let index = position + 1;
-                while(this.table[ index] !== null) {
+                while(this.table[ index] != null) {
                     index++;
                 }
                 this.table[index] = new ValuePair(key, value);
@@ -47,6 +47,7 @@ class HashTableLinearProbing extends HashTable {
         if (this.table[position] != null) {
             if (this.table[position].key === key) {
                 delete this.table[position];
+                this.verfiyRemoveSideEffect(key, position);
             } else {
                 let index = position +1;
                 while(this.table[index] != null && this.table[index].key != key) {
@@ -54,6 +55,7 @@ class HashTableLinearProbing extends HashTable {
                 }
                 if (this.table[index] != null && this.table[index].key === key) {
                     delete this.table[index];
+                    this.verfiyRemoveSideEffect(key, index);
                 }
             }
             return true;
@@ -74,3 +76,19 @@ class HashTableLinearProbing extends HashTable {
         }
     }
 }
+
+const hash = new HashTableLinearProbing();
+hash.put('Ygritte', 'ygritte@email.com');
+hash.put('Jonathan', 'jonathan@email.com');
+hash.put('Jamie', 'jamie@email.com');
+hash.put('Jack', 'jack@email.com');
+hash.put('Jasmine', 'jasmine@email.com');
+hash.put('Jake', 'jake@email.com');
+hash.put('Nathan', 'nathan@email.com');
+hash.put('Athelstan', 'athelstan@email.com');
+hash.put('Sue', 'sue@email.com');
+hash.put('Aethelwulf', 'aethelwulf@email.com');
+hash.put('Sargeras', 'sargeras@email.com');
+
+const a = hash.get('Jack');
+const b = hash.remove('Jack');

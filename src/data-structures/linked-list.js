@@ -69,7 +69,7 @@ export class LinkedList {
     isEmpty() {
         return this.size() === 0;
     }
-    geHead() {
+    getHead() {
         return this.head;
     }
     toString() {
