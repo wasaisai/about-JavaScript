@@ -4,7 +4,7 @@
 import {defaultToString} from './utils/index.js';
 import {ValuePair} from './utils/value-pair.js';
 
-export default class Dictionary {
+export class Dictionary {
     constructor(toStrFn = defaultToString) {
         this.toStrFn = toStrFn;
         this.table = {};
