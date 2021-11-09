@@ -96,7 +96,7 @@ export class Dictionary {
 
 
 const dictionary = new Dictionary();
-dictionary.set('jack', 'jack@baidu.com');
+dictionary.set('jack', 'jack@email.com');
 dictionary.set('san', 'san@email.com');
 dictionary.set('lili', 'lili@email.com');
 const a = dictionary.hasKey('zhuli');
