@@ -8,9 +8,22 @@
  *      3. 接着, 算法对划分后的小数组(较主元小的值组成的子数组, 以及较主元大的值组成的子数组)重复之前的两个步骤, 直至数组已完成排序
  */
 
-import { Compare, createNonSortedArray, defaultCompare, swap } from "./utils/index.js";
+import {
+    Compare,
+    createNonSortedArray,
+    defaultCompare,
+    swap
+} from './utils/index.js';
 
-function quickSort(arrary, compareFn = defaultCompare) {
+
+/**
+ * 快排函数
+ * @param {Array} arrary 操作的数组
+ * @param {Function} comp areFn 比较函数
+ * @returns arrray
+ */
+
+export function quickSort(arrary, compareFn = defaultCompare) {
     return quick(arrary, 0, arrary.length - 1, compareFn);
 }
 
@@ -21,10 +34,12 @@ function quick(arrary, left, right, compareFn) {
         if (left < index - 1) {
             quick(arrary, left, index - 1, compareFn);
         }
+
         if (index < right) {
-            quick(arrary, index, right, compareFn)
+            quick(arrary, index, right, compareFn);
         }
     }
+
     return arrary;
 }
 
@@ -36,7 +51,7 @@ function partition(arrary, left, right, compareFn) {
         while (compareFn(arrary[l], pivot) === Compare.LESS_THEN) {
             l++;
         }
-        while(compareFn(arrary[r], pivot) === Compare.BIGGER_THAN) {
+        while (compareFn(arrary[r], pivot) === Compare.BIGGER_THAN) {
             r--;
         }
         if (l <= r) {
@@ -44,12 +59,12 @@ function partition(arrary, left, right, compareFn) {
             l++;
             r--;
         }
+
     }
     return l;
 }
 
-
 let arrary = createNonSortedArray(5);
 console.log(111, arrary);
 arrary = quickSort(arrary);
-console.log(arrary)
+console.log(arrary);

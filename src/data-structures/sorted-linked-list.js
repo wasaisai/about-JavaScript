@@ -31,7 +31,7 @@ class SortedLinkedList extends LinkedList {
     getIndexNextSortedElement(element) {
         let current = this.head;
         let i = 0;
-        for(; i < this.size() && current; i++) {
+        for (; i < this.size() && current; i++) {
             const comp = this.compareFn(element, current.element);
             if (comp === Compare.LESS_THEN) {
                 return i;

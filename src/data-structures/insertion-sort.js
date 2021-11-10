@@ -7,7 +7,7 @@
 
 import { Compare, createNonSortedArray, defaultCompare } from "./utils/index.js";
 
-function insertionSort(array, compareFn = defaultCompare) {
+export function insertionSort(array, compareFn = defaultCompare) {
     const {length} = array;
     let temp;
     for(let i = 1; i < length; i++) {
