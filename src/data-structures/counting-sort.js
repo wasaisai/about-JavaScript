@@ -5,7 +5,7 @@
  *       3. 在所有元素都计数完成后, 临时数组已排好序并可迭代以构建排序后的结果数组
  */
 
-import { createNonSortedArray } from "./utils/index.js";
+import { createNonSortedArray, findMaxValue } from "./utils/index.js";
 
 function countingSort(array) {
     if (array.length < 2) {
@@ -22,23 +22,13 @@ function countingSort(array) {
     });
 
     let sortedIndex = 0;
-    counts.forEach((count, i) => {
+    counts.forEach((count, i) => { 
         while (count > 0) {
             array[sortedIndex++] = i;
             count--;
         }
     })
     return array; 
-}
-
-function findMaxValue(array) {
-    let max = array[0];
-    for (let i = 1; i < array.length; i++) {
-        if (array[i] > max) {
-            max = array[i];
-        }
-    }
-    return max;
 }
 
 let arr = createNonSortedArray(5);

@@ -1,7 +1,18 @@
+/**
+ * 比较两个变量是否相等
+ * @param {*} a 
+ * @param {*} b 
+ * @returns 
+ */
 export function defaultEquals(a, b) {
     return a === b;
 };
 
+/**
+ * 将数据转换为string类型
+ * @param {any} item 需要转换为string类型的数据
+ * @returns 
+ */
 export function defaultToString(item) {
     if(item === null) {
         return 'NULL';
@@ -13,11 +24,20 @@ export function defaultToString(item) {
     return item.toString();
 };
 
+/**
+ * @constant 较大或较小常量
+ */
 export const Compare = {
     LESS_THEN: -1,
     BIGGER_THAN: 1
 }
 
+/**
+ * 比较两个变量的大小
+ * @param {*} a 
+ * @param {*} b 
+ * @returns 
+ */
 export function defaultCompare(a, b) {
     if (a === b) {
         return 0;
@@ -63,5 +83,35 @@ function randomNum(minNum,maxNum){
                 return 0; 
             break; 
     } 
-} 
+}
+
+/**
+ * 获取数组中的最大值
+ * @param {Array} array 
+ * @returns 最大值
+ */
+export function findMaxValue(array) {
+    let max = array[0];
+    for (let i = 1; i < array.length; i++) {
+        if (array[i] > max) {
+            max = array[i];
+        }
+    }
+    return max;
+}
+
+/**
+ * 获取数组中的最小值
+ * @param {Array} array 
+ * @returns 最小值
+ */
+export function findMinValue(array) {
+    let min = array[0];
+    for (let i = 1; i < array.length; i++) {
+        if (array[i] < min) {
+            min = array[i];
+        }
+    }
+    return min;
+}
 
