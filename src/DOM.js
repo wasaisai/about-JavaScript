@@ -150,7 +150,7 @@ function throttle(fn, interval) {
         if ( now - last >= interval) {
             // 如果时间间隔大于我们设定的时间间隔阀值, 则执行回调
             last = now;
-            fn.apply(context, args)
+            fn.apply(context, args);
         }
     }
 }
