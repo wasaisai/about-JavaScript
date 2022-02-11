@@ -18,3 +18,5 @@ console.log(common.length);
 common = 12; // 推断为number
 // console.log(common.length) 编译报错: Property 'length' does not exist on type 'number'.
 console.log(isNaN(common)) 
+
+export {}
