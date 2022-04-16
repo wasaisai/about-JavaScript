@@ -220,11 +220,11 @@ function executor(resolve) {
     let rand = Math.random();
     console.log(1);
     console.log(rand);
-    if(rand > 0.5) {
-        resolve();
-    } else {
-        // reject();
-    }
+    // if(rand > 0.5) {
+    //     resolve();
+    // } else {
+    //     // reject();
+    // }
 }
 
 // let p0 = new Promise(executor);
@@ -274,6 +274,3 @@ function executor(resolve, reject) {
 let test = new Prom(executor);
 
 test.then(value => console.log(value));
-
-
-

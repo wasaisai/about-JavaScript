@@ -44,7 +44,7 @@ console.log('main 4');
 
 /**
  * genDemo的执行过程
- * 1. 通过调用生成器函数genDemo来创建一个协程gen, 创建之后, gen协程并没有立即执行
+ * 1. 通过调用bu生成器函数genDemo来创建一个协程gen, 创建之后, gen协程并没有立即执行
  * 2. 要让gen协程执行, 需要通过调用gen.next
  * 3. 当协程正在执行的时候, 可以通过yield关键字来暂停gen协程的执行, 并返回主要信息给父协程
  * 4. 如果协程在执行期间, 遇到了retuen关键字, 那么JavaScript引擎会结束当前协程, 并将return后面的内容返回给父协程
@@ -53,7 +53,7 @@ console.log('main 4');
 /**
  * 协程间的交互
  * 1. gen协程和父协程是在主线程上交互执行的, 并不是并发执行, 它们之间的切换是通过yield和gen.next来配合完成的
- * 2. 当gen协程中调用了yield方法时, Javascript引擎会保存gen协程当前的调用栈信息, 并恢复父协程的调用栈信息. 同样没当在父协程中执行gen.next时, javascript引擎会保存父协程的调用栈信息, 并恢复gen协程的调用栈信息
+ * 2. 当gen协程中调用了yield方法时, Javascript引擎会保存gen协程当前的调用栈信息, 并恢复父协程的调用栈信息. 同样每当在父协程中执行gen.next时, javascript引擎会保存父协程的调用栈信息, 并恢复gen协程的调用栈信息
  */
 
 
