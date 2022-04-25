@@ -28,7 +28,7 @@ const tom:Cat = {
     name: 'Tom',
     run() {console.log('run')}
 };
-// swim(tom); 编译时不会报错, 但允许时会报错
+// swim(tom); 编译时不会报错, 但允行时会报错
 // 原因: 这段代码(animal as fish).swim()隐藏了animal可能为cat的情况, 将animal直接断言为fish, 而ts编译器信任了我们的断言, 所以在调用swim()时没有编译错误
 //     可是swim函数接受的参数是cat | fish, 一旦传入的参数是cat类型的变量, 由于cat上没有swim方法, 就会导致运行时错误了
 
