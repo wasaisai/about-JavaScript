@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/src/array/leetCode.js"
+            "program": "${workspaceFolder}/index.js"
         }
     ]
 }

@@ -100,7 +100,7 @@ function dataCompatible(arr) {
             arr[x][y] =(((arr[x][y])/total)*100+"%");
             result.push(arr[x]);
         }
-   }
+    }
     let deffArr = myMap.concat(map).filter(function(v, i, arr) {
         return arr.indexOf(v) === arr.lastIndexOf(v);
     });

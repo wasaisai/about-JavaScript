@@ -7,6 +7,7 @@ var longestCommonPrefix = function(strs) {
     strs.forEach((strArray, index) => {
         strBucktes[index] = strArray.split('');
     })
+    console.log(strBucktes)
     return compareFn(strBucktes);
 
     function compareFn(array) {
@@ -32,11 +33,11 @@ var longestCommonPrefix = function(strs) {
                     publicStr.splice(itemIndex);
                 }
             })
-       })
+        })
         return publicStr;
     }
     
 };
 
-const a = longestCommonPrefix(["fl","fl",""]);
-console.log(a);
+const a = longestCommonPrefix(["fl","fl","f"]);
+console.log(2222, a);

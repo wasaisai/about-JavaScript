@@ -1,5 +1,5 @@
 ### 什么是CSRF攻击  
-CSDF(Cross-site request forgery), 又称为“跨站请求伪造”, 是指黑客引诱用户打开黑客的网站, 在黑客的网站中, 利用用户的登录状态发起的跨站请求.   
+CSRF(Cross-site request forgery), 又称为“跨站请求伪造”, 是指黑客引诱用户打开黑客的网站, 在黑客的网站中, 利用用户的登录状态发起的跨站请求.   
 简单来讲, CSRF攻击就是黑客利用了用户的登陆状态, 并通过第三方的站点来做一些坏事.  
 实施CSRF攻击的方式
 1. 自动发起get请求;  
@@ -25,7 +25,7 @@ Cookie是浏览器和服务器之间维护登陆状态的一个关键数据. 通
 
 set-cookie: 1P_JAR=2019-10-20-06; expires=Tue, 19-Nov-2019 06:36:21 GMT; path=/; domain=.google.com; SameSite=none
 ```
-**SameSite选项通常有strict、Lax、和None三个值: 
+**SameSite选项通常有strict、Lax、和None三个值:**  
 - strrict最为严格. 如果SameSite的值是Strict, 那么浏览器会完全禁止第三方Cookie.  
 - Lax相对宽松一点. 在跨站点的情况下, 从第三方站点的链接打开和从第三方站点提交GEt方式的表单这两种方式都会携带Cookie. 但如果在第三方站点中使用Post方法, 或者通过img、iframe等标签加载的URL, 这些场景都不会携带Cookie.  
 - 如果使用None的话, 在任何场景下都会发送Cookie数据.  

@@ -249,28 +249,52 @@ function executor(resolve) {
 
 // let p = new Bromise(executor);
 
-function Prom(executor) {
-    let onResolve_ = null;
-    let onReject_ = null;
-    this.then = function(resolve, reject) {
-        onResolve_ = resolve;
-        onReject_ = reject;
-    }
-    function resolve(value) {
-        setTimeout(() => {
-            onResolve_(value);
-        }, 0);
-    }
-    function reject(error) {
-        onReject_(error);
-    }
-    executor(resolve, reject);
+// function Prom(executor) {
+//     let onResolve_ = null;
+//     let onReject_ = null;
+//     this.then = function(resolve, reject) {
+//         onResolve_ = resolve;
+//         onReject_ = reject;
+//     }
+//     function resolve(value) {
+//         setTimeout(() => {
+//             onResolve_(value);
+//         }, 0);
+//     }
+//     function reject(error) {
+//         onReject_(error);
+//     }
+//     executor(resolve, reject);
+// }
+// 
+// function executor(resolve, reject) {
+//     resolve(100);
+// }
+// 
+// let test = new Prom(executor);
+// 
+// test.then(value => console.log(value));
+
+
+const arr = [1, 2, 3, 4];
+const promises = [];
+
+arr.map(
+    async (value) => {
+        promises.push(new Promise(res => {
+            setTimeout(() => {
+                console.log(value);
+                res();
+            }, 1000);
+        }));
+});
+
+const promise = Promise.resolve();
+
+for (let i = 0; i < promises.length; i += 1) {
+    const task = promises[i];
+    promise.then(() => {
+        return task;
+    });
 }
 
-function executor(resolve, reject) {
-    resolve(100);
-}
-
-let test = new Prom(executor);
-
-test.then(value => console.log(value));
